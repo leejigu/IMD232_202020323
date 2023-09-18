@@ -11,34 +11,6 @@ function draw() {
   rect(0, 0, 500, 350);
   noStroke(0);
 
-  //달
-  fill('yellow');
-  circle(400, 80, 140);
-
-  //남산타워
-  fill('#414549');
-  rect(350, 240, 70, 20);
-  noStroke(0);
-  fill('#414549');
-  rect(360, 230, 50, 20);
-  noStroke(0);
-  fill('#414549');
-  rect(379, 130, 12, 100);
-  noStroke(0);
-  fill('#414549');
-  rect(370, 110, 30, 30);
-  noStroke(0);
-  fill('#414549');
-  rect(375, 100, 20, 20);
-  noStroke(0);
-  fill('#414549');
-  rect(383, 70, 5, 50);
-  noStroke(0);
-  fill('#414549');
-  rect(380.5, 70, 10, 7);
-  fill('#414549');
-  triangle(387, 20, 384, 70, 387, 70);
-
   //뒷산
   fill('#414549');
   rect(300, 250, 140, 60);
@@ -109,7 +81,33 @@ function draw() {
   triangle(130, 325, 90, 325, 130, 290);
   fill('#041546');
 
-  fill('#CAC6B2');
-  rect(69, 390, 83, 17);
+  fill('#slategray');
+  rect((0 * width) / 100, (70 * height) / 100, width * 1.0, height * 0.3);
+  fill('#6365C7');
+  rect((0 * width) / 100, (0 * height) / 100, width * 1.0, height * 0.7);
+  fill('yellow');
+  circle((80 * width) / 100, (10 * height) / 50, width * 0.3, height * 0.7);
+  //남산타워
+  fill('#414549');
+  rect(350, 240, 70, 20);
   noStroke(0);
+  fill('#414549');
+  rect(360, 230, 50, 20);
+  noStroke(0);
+  fill('#414549');
+  rect(379, 130, 12, 100);
+  noStroke(0);
+  fill('#414549');
+  rect(370, 110, 30, 30);
+  noStroke(0);
+  fill('#414549');
+  rect(375, 100, 20, 20);
+  noStroke(0);
+  fill('#414549');
+  rect(383, 70, 5, 50);
+  noStroke(0);
+  fill('#414549');
+  rect(380.5, 70, 10, 7);
+  fill('#414549');
+  triangle(387, 20, 384, 70, 387, 70);
 }
