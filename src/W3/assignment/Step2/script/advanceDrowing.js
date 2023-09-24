@@ -5,11 +5,11 @@ let rad = 50;
 
 let cv;
 let mv;
-let accPoint;
-let posPoint;
-let cvToMv;
-let cvToPo;
-let cvToAc;
+let accA;
+let Apos;
+let cvtomv;
+let cvtopos;
+let cvtoacc;
 
 let mouse;
 let toMouse;
@@ -36,17 +36,17 @@ function display() {
   stroke('blue');
   cv.set(pos.x, pos.y);
   mv.set(mouseX, mouseY);
-  cvToMv = p5.Vector.sub(mv, cv);
+  cvtomv = p5.Vector.sub(mv, cv);
   translate(cv.x, cv.y);
 
-  line(0, 0, cvToMv.x, cvToMv.y);
+  line(0, 0, cvtomv.x, cvtomv.y);
 
   strokeWeight(3);
   stroke('fuchsia');
-  posPoint.set(pos.x + vel.x, pos.y + vel.y);
-  cvToPo = p5.Vector.sub(posPoint, cv);
+  Apos.set(pos.x + vel.x, pos.y + vel.y);
+  cvtopos = p5.Vector.sub(Apos, cv);
 
-  line(0, 0, cvToPo.x * 10, cvToPo.y * 10);
+  line(0, 0, cvtopos.x * 10, cvtopos.y * 10);
 }
 
 function reset() {
@@ -58,9 +58,9 @@ function reset() {
 
   cv = createVector();
   mv = createVector();
-  accPoint = createVector();
-  posPoint = createVector();
-  cvToPo = createVector();
+  accA = createVector();
+  Apos = createVector();
+  cvtopos = createVector();
 }
 
 function update() {

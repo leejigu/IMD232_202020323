@@ -5,11 +5,11 @@ let rad = 50;
 
 let cv;
 let mv;
-let accPoint;
-let posPoint;
-let cvToMv;
-let cvToPo;
-let cvToAc;
+let accA;
+let posA;
+let cvtomv;
+let cvtopos;
+let cvtoac;
 
 function setup() {
   setCanvasContainer('canvas', 100, 100, true);
@@ -33,24 +33,24 @@ function display() {
   stroke('fuchsia');
   cv.set(pos.x, pos.y);
   mv.set(mouseX, mouseY);
-  cvToMv = p5.Vector.sub(mv, cv);
+  cvtomv = p5.Vector.sub(mv, cv);
   translate(cv.x, cv.y);
 
-  line(0, 0, cvToMv.x, cvToMv.y);
+  line(0, 0, cvtomv.x, cvtomv.y);
 
   strokeWeight(2);
   stroke('blue');
-  accPoint.set(acc.x + pos.x, acc.y + pos.y);
-  cvToAc = p5.Vector.sub(accPoint, cv);
-  line(0, 0, cvToAc.x * 100, cvToAc.y * 100);
-  console.log(mag(cvToAc.x, cvToAc.y));
+  accA.set(acc.x + pos.x, acc.y + pos.y);
+  cvtoac = p5.Vector.sub(accA, cv);
+  line(0, 0, cvtoac.x * 100, cvtoac.y * 100);
+  console.log(mag(cvtoac.x, cvtoac.y));
 
   strokeWeight(3);
   stroke('purple');
-  posPoint.set(pos.x + vel.x, pos.y + vel.y);
-  cvToPo = p5.Vector.sub(posPoint, cv);
+  posA.set(pos.x + vel.x, pos.y + vel.y);
+  cvtopos = p5.Vector.sub(posA, cv);
 
-  line(0, 0, cvToPo.x * 10, cvToPo.y * 10);
+  line(0, 0, cvtopos.x * 10, cvtopos.y * 10);
 }
 
 function reset() {
@@ -59,9 +59,9 @@ function reset() {
   acc = createVector();
   cv = createVector();
   mv = createVector();
-  accPoint = createVector();
-  posPoint = createVector();
-  cvToPo = createVector();
+  accA = createVector();
+  posA = createVector();
+  cvtopos = createVector();
 }
 
 function update() {
