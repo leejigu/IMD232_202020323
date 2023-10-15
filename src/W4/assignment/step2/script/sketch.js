@@ -1,5 +1,5 @@
 function setup() {
-  setCanvasContainer('anyname', 3, 2, true);
+  setCanvasContainer('anyname', 1, 1, true);
 
   background(255);
   noStroke();
@@ -8,5 +8,4 @@ function setup() {
 
 function draw() {
   background(255);
-  circle(mouseX, mouseY, 50);
 }
