@@ -1,12 +1,16 @@
+let mover;
+
 function setup() {
-  setCanvasContainer('canvas', 960, 640);
-
+  setCanvasContainer('canvas', 3, 2, true);
   background(255);
-  noStroke();
-  fill('red');
+  mover = new MoverNoMass(width / 2, height / 2, 50);
 }
-
 function draw() {
   background(255);
-  circle(mouseX, mouseY, 50);
+
+  mover.update();
+  mover.checkEdges();
+  mover.display();
+  mover.displayVectors();
 }
+JavaScriptDownload;
