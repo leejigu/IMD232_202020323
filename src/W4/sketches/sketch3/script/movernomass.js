@@ -3,7 +3,7 @@ class movernomass {
     this.pos = createVector(x, y);
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
-    this.accDisplay = createVector(0, 0);
+    this.accDisplay = createVector(0, 0); //가속도 보이게
     this.radius = r;
   }
 

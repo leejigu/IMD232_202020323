@@ -11,6 +11,7 @@ class MoverNoMass {
     this.pos.add(this.vel);
   }
 
+  //공이 통통튀게
   checkEdges() {
     if (this.pos.x < 0) {
       //   // 0보다 얼마나 뚫고 갔는가?
@@ -29,6 +30,7 @@ class MoverNoMass {
       this.pos.x += width - 1;
       this.vel.x *= -1;
     }
+    //바닥에튕기게
     if (this.pos.y > height - 1) {
       this.pos.y -= height - 1;
       this.pos.y *= -1;
@@ -42,7 +44,7 @@ class MoverNoMass {
     fill(0);
     ellipse(this.pos.x, this.pos.y, 2 * this.radius);
   }
-
+  //공의 가속도
   displayVectors() {
     stroke('red');
     line(

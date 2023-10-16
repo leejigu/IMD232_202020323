@@ -15,6 +15,7 @@ function draw() {
 
   mover.addAcc(gravity);
   if (mouseIsPressed && isMouseInsideCanvas()) {
+    //캔버스안에서눌러야 적용
     mover.addAcc(wind);
   }
   mover.update();
