@@ -19,6 +19,9 @@ function draw() {
     const scaledGravity = p5.Vector.mult(gravity, particles[idx].mass);
     particles[idx].applyForce(scaledGravity);
     particles[idx].update();
+    if (particles[idx].isDead()) {
+      particles.splice(idx, 1);
+    }
     particles[idx].display();
   }
   console.log(particles.length);
