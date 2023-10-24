@@ -8,7 +8,7 @@ class Particle {
     this.color = color;
     this.angle = 0;
     this.angleVel = radians(random(-5, 5));
-    this.angeAcc = radians(random(-0.05, 0.05));
+    this.angleAcc = radians(random(-0.05, 0.05));
   }
 
   applyForce(force) {

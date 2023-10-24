@@ -5,7 +5,7 @@ function setup() {
   setCanvasContainer('canvas', 3, 2, true);
   rectMode(CENTER);
   colorMode(HSL, 360, 100, 100, 100);
-  gravity = createVector(0, 0.01);
+  gravity = createVector(0, 0.05);
   background(0, 100, 100);
 }
 
@@ -16,7 +16,7 @@ function draw() {
   );
 
   for (let idx = particles.length - 1; idx >= 0; idx--) {
-    let scaledGravity = p5.Vector.mult(gravity, particles[idx].mass);
+    const scaledGravity = p5.Vector.mult(gravity, particles[idx].mass);
     particles[idx].applyForce(scaledGravity);
     particles[idx].update();
     particles[idx].display();
