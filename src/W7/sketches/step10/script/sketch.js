@@ -1,33 +1,36 @@
-let emitter;
-let emitters = [];
-let gravity = 0;
+let flowfield;
+let mVec;
 
 function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
+  setCanvasContainer('canvas', 1, 1, true);
 
-  emitter = new Emitter(width / 2, 20);
-
-  gravity = createVector(0, 0.1);
+  flowfield = new Flowfiled(30, 0.05);
+  mVec = createVector(0, 0);
 
   background(255);
 }
 
 function draw() {
-  emitter.addParticle();
-  for (let i = 0; i < emitters.length; i++) {
-    emitters[i].addParticle();
-  }
+  mVec.set(mouseX, mouseY);
+
+  const lookupVec = flowfield.lookup(mVec);
 
   background(255);
-  emitter.update(gravity);
-  emitter.display();
-  for (let i = 0; i < emitters.length; i++) {
-    emitters[i].update(gravity);
-    emitters[i].display();
-  }
-  console.log(emitter.particles.length);
+  flowfield.display();
+
+  push();
+  translate(mVec.x, mVec.y);
+  rotate(lookupVec.heading());
+  noStroke();
+  // fill('white');
+  // ellipse(0, 0, 20);
+  // noFill();
+  strokeWeight(4);
+  stroke('red');
+  line(-50, 0, 50, 0);
+  pop();
 }
 
 function mousePressed() {
-  emitters.push(new Emitter(mouseX, mouseY));
+  flowfield.init();
 }

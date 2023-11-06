@@ -1,33 +1,29 @@
-let emitter;
-let emitters = [];
-let gravity = 0;
+const tileSize = 40;
+let columnNum;
+let rowNum;
+let noiseCoordMult = 0.1;
 
 function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
+  setCanvasContainer('canvas', 1, 1, true);
 
-  emitter = new Emitter(width / 2, 20);
-
-  gravity = createVector(0, 0.1);
+  columnNum = floor(width / tileSize);
+  rowNum = floor(height / tileSize);
 
   background(255);
+
+  noiseSeed(5);
 }
 
 function draw() {
-  emitter.addParticle();
-  for (let i = 0; i < emitters.length; i++) {
-    emitters[i].addParticle();
-  }
-
+  // randomSeed(100);
   background(255);
-  emitter.update(gravity);
-  emitter.display();
-  for (let i = 0; i < emitters.length; i++) {
-    emitters[i].update(gravity);
-    emitters[i].display();
+  noStroke();
+  for (let row = 0; row < rowNum; row++) {
+    for (let column = 0; column < columnNum; column++) {
+      const idx = column + row * columnNum;
+      // fill(random() * 255);
+      fill(noise(row * noiseCoordMult, column * noiseCoordMult) * 255);
+      rect(column * tileSize, row * tileSize, tileSize);
+    }
   }
-  console.log(emitter.particles.length);
-}
-
-function mousePressed() {
-  emitters.push(new Emitter(mouseX, mouseY));
 }
