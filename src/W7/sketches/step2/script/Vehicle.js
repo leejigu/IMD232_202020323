@@ -60,6 +60,7 @@ class Vehicle {
   }
 
   borderInfinite() {
+    //화면밖으로 나가지 못하게하기
     if (this.pos.x < -this.rad) {
       this.pos.x = width + this.rad;
     } else if (this.pos.x > width + this.rad) {
