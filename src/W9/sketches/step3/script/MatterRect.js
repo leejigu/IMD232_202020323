@@ -32,3 +32,4 @@ class MatterRect {
     Composite.remove(matterEngine.world, this.body);
   }
 }
+s;
