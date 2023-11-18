@@ -28,25 +28,50 @@ Runner.run(runner, engine);
 
 let mouse;
 let ropeA;
-let ropeB;
-let ropeC;
+let rope;
 
 function setup() {
   setCanvasContainer('canvas', oWidth, oHeight, true);
 
   const arrow1 = (vertices = [
-    { x: 20, y: 0 },
-    { x: 20, y: 10 },
-    { x: 50, y: 10 },
-    { x: 50, y: 40 },
-    { x: 20, y: 40 },
-    { x: 20, y: 50 },
-    { x: 0, y: 25 },
+    { x: 28, y: 0 },
+    { x: 37, y: 17 },
+    { x: 56, y: 20 },
+    { x: 43, y: 34 },
+    { x: 46, y: 53 },
+    { x: 28, y: 45 },
+    { x: 10, y: 53 },
+    { x: 13, y: 34 },
+    { x: 0, y: 20 },
+    { x: 19, y: 16 },
+  ]);
+  const arrow2 = (vertices = [
+    { x: 24, y: -15 },
+    { x: 0, y: 10 },
+    { x: 24, y: 38 },
+    { x: 24, y: 24 },
+    { x: 55, y: 24 },
+    { x: 55, y: -1 },
+    { x: 24, y: -1 },
+  ]);
+  const arrow3 = (vertices = [
+    { x: 12, y: 0 },
+    { x: 26, y: 0 },
+    { x: 26, y: 12 },
+    { x: 38, y: 12 },
+    { x: 38, y: 26 },
+    { x: 26, y: 26 },
+    { x: 26, y: 38 },
+    { x: 12, y: 38 },
+    { x: 12, y: 26 },
+    { x: 0, y: 26 },
+    { x: 0, y: 12 },
+    { x: 12, y: 12 },
   ]);
 
   let group = Matter.Body.nextGroup(true);
 
-  ropeA = Matter.Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
+  ropeA = Matter.Composites.stack(100, 50, 7, 1, 10, 10, function (x, y) {
     return Matter.Bodies.fromVertices(x, y, arrow1, {
       collisionFilter: { group: group },
     });
@@ -70,8 +95,8 @@ function setup() {
 
   group = Matter.Body.nextGroup(true);
 
-  ropeB = Matter.Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
-    return Matter.Bodies.fromVertices(x, y, arrow1, {
+  ropeB = Matter.Composites.stack(350, 50, 8, 1, 10, 10, function (x, y) {
+    return Matter.Bodies.fromVertices(x, y, arrow2, {
       collisionFilter: { group: group },
     });
   });
@@ -93,8 +118,8 @@ function setup() {
 
   group = Matter.Body.nextGroup(true);
 
-  ropeC = Matter.Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-    return Matter.Bodies.fromVertices(x - 20, y, arrow1, {
+  ropeC = Matter.Composites.stack(600, 50, 15, 1, 10, 10, function (x, y) {
+    return Matter.Bodies.fromVertices(x - 20, y, arrow3, {
       collisionFilter: { group: group },
       chamfer: 5,
     });
@@ -140,10 +165,8 @@ function setup() {
 function draw() {
   mouse.pixelRatio = (pixelDensity() * width) / oWidth;
 
-  background('#3F3A4A');
+  background('#ffffff');
   colorMode(HSL);
-  stroke(54, 90, 80);
-  fill(54, 90, 80);
   ropeA.bodies.forEach((eachBody) => {
     eachBody.parts.forEach((eachPart, idx) => {
       if (idx === 0) return;
@@ -154,6 +177,8 @@ function draw() {
           (eachVertex.y / oHeight) * height
         );
       });
+      noStroke(0, 0, 0);
+      fill(65, 100, 50);
       endShape(CLOSE);
     });
   });
@@ -168,6 +193,8 @@ function draw() {
           (eachVertex.y / oHeight) * height
         );
       });
+      noStroke(0, 0, 0);
+      fill(180, 100, 50);
       endShape(CLOSE);
     });
   });
@@ -182,6 +209,8 @@ function draw() {
           (eachVertex.y / oHeight) * height
         );
       });
+      noStroke(0, 0, 0);
+      fill(300, 100, 50);
       endShape(CLOSE);
     });
   });
