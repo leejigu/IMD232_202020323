@@ -69,11 +69,11 @@ class Cell {
     translate(this.x, this.y);
     stroke(this.isHover(mx, my) ? 'red' : 'black');
     if (this.state === ROCK) {
-      fill(255, 0, 0); // 바위는 빨강
+      fill(255, 0, 255);
     } else if (this.state === PAPER) {
       fill(0, 255, 0); // 보는 초록
     } else if (this.state === SCISSORS) {
-      fill(0, 0, 255); // 가위는 파랑
+      fill(0, 220, 255); // 가위는 파랑
     }
     rect(0, 0, this.w, this.h);
     pop();
