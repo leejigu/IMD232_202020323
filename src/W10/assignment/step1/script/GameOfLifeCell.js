@@ -1,62 +1,103 @@
-class Cell {
-  constructor(x, y, w, h, isClickable = true) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.isClickable = isClickable;
-    this.state = false;
-    this.nextState = this.state;
-    this.neighbors = [];
-  }
+const ROCK = 0;
+const PAPER = 1;
+const SCISSORS = 2;
 
-  setNeighbors(neighbors) {
-    this.neighbors = neighbors;
-  }
+const tiles = [];
+const rowNum = 50,
+  colNum = 50;
 
-  calcNextState() {
-    const livingNeighbors = this.neighbors.filter(
-      (eachNeighbor) => eachNeighbor?.state
-    );
-    const livingNum = livingNeighbors.length;
-    if (this.state) {
-      if (livingNum < 2 || livingNum > 3) {
-        this.nextState = false;
-      } else {
-        this.nextState = this.state;
-      }
-    } else {
-      if (livingNum === 3) {
-        this.nextState = true;
-      } else {
-        this.nextState = this.state;
-      }
+function setup() {
+  setCanvasContainer('canvas', 1, 1, true);
+
+  const w = width / colNum;
+  const h = w;
+  for (let row = 0; row < rowNum; row++) {
+    for (let col = 0; col < colNum; col++) {
+      const x = w * col;
+      const y = h * row;
+      const newTile = new Cell(x, y, w, h);
+      tiles.push(newTile);
     }
   }
 
-  update() {
-    this.state = this.nextState;
+  for (let row = 0; row < rowNum; row++) {
+    for (let col = 0; col < colNum; col++) {
+      const neighborsIdx = [
+        getIdx(row - 1, col - 1),
+        getIdx(row - 1, col),
+        getIdx(row - 1, col + 1),
+        getIdx(row, col + 1),
+        getIdx(row + 1, col + 1),
+        getIdx(row + 1, col),
+        getIdx(row + 1, col - 1),
+        getIdx(row, col - 1),
+      ];
+
+      if (col === 0) {
+        neighborsIdx[0] = -1;
+        neighborsIdx[6] = -1;
+        neighborsIdx[7] = -1;
+      } else if (col === colNum - 1) {
+        neighborsIdx[2] = -1;
+        neighborsIdx[3] = -1;
+        neighborsIdx[4] = -1;
+      }
+
+      if (row === 0) {
+        neighborsIdx[0] = -1;
+        neighborsIdx[1] = -1;
+        neighborsIdx[2] = -1;
+      } else if (row === rowNum - 1) {
+        neighborsIdx[4] = -1;
+        neighborsIdx[5] = -1;
+        neighborsIdx[6] = -1;
+      }
+
+      const neighbors = [];
+      neighborsIdx.forEach((eachIdx) => {
+        neighbors.push(eachIdx >= 0 ? tiles[eachIdx] : null);
+      });
+
+      const idx = getIdx(row, col);
+      tiles[idx].setNeighbors(neighbors);
+    }
   }
 
-  isHover(mx, my) {
-    return (
-      this.x < mx && this.x + this.w > mx && this.y < my && this.y + this.h > my
-    );
-  }
+  randomSeed(1);
+  tiles.forEach((each) => {
+    const randomValue = floor(random(3)); // 0, 1, 2 중 하나를 랜덤으로 선택
+    each.state = randomValue;
+  });
 
-  toggleState(mx, my) {
-    if (!this.isClickable) return false;
-    if (!this.isHover(mx, my)) return false;
-    this.state = !this.state;
-    return true;
-  }
+  frameRate(15);
+  background(255);
+  tiles.forEach((each) => {
+    each.display(mouseX, mouseY);
+  });
+}
 
-  display(mx, my) {
-    push();
-    translate(this.x, this.y);
-    stroke(this.isHover(mx, my) ? 'red' : 'black');
-    fill(this.state ? 255 : 64);
-    rect(0, 0, this.w, this.h);
-    pop();
+function draw() {
+  background(255);
+
+  tiles.forEach((each) => {
+    each.calcNextState();
+  });
+
+  tiles.forEach((each) => {
+    each.update();
+  });
+
+  tiles.forEach((each) => {
+    each.display(mouseX, mouseY);
+  });
+}
+
+function getIdx(row, col) {
+  return row * colNum + col;
+}
+
+function mouseClicked() {
+  for (let idx = 0; idx < tiles.length; idx++) {
+    if (tiles[idx].toggleState(mouseX, mouseY)) break;
   }
 }

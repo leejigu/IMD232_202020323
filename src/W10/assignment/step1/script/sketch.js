@@ -1,99 +1,81 @@
-const tiles = [];
-const rowNum = 50,
-  colNum = 50;
+class Cell {
+  constructor(x, y, w, h, isClickable = true) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.isClickable = isClickable;
+    this.state = 0; // 초기 상태는 바위
+    this.nextState = this.state;
+    this.neighbors = [];
+  }
 
-function setup() {
-  setCanvasContainer('canvas', 1, 1, true);
+  setNeighbors(neighbors) {
+    this.neighbors = neighbors;
+  }
 
-  const w = width / colNum;
-  const h = w;
-  for (let row = 0; row < rowNum; row++) {
-    for (let col = 0; col < colNum; col++) {
-      const x = w * col;
-      const y = h * row;
-      const newTile = new Cell(x, y, w, h);
-      tiles.push(newTile);
+  calcNextState() {
+    const opponents = this.neighbors.filter((neighbor) => neighbor !== null);
+    const rockCount = opponents.filter(
+      (neighbor) => neighbor.state === ROCK
+    ).length;
+    const paperCount = opponents.filter(
+      (neighbor) => neighbor.state === PAPER
+    ).length;
+    const scissorsCount = opponents.filter(
+      (neighbor) => neighbor.state === SCISSORS
+    ).length;
+
+    if (this.state === ROCK) {
+      if (scissorsCount > 2) {
+        this.nextState = SCISSORS; // 바위는 가위를 이김
+      } else {
+        this.nextState = ROCK; // 방어
+      }
+    } else if (this.state === PAPER) {
+      if (rockCount > 2) {
+        this.nextState = ROCK; // 보는 바위를 이김
+      } else {
+        this.nextState = PAPER; // 방어
+      }
+    } else if (this.state === SCISSORS) {
+      if (paperCount > 2) {
+        this.nextState = PAPER; // 가위는 보를 이김
+      } else {
+        this.nextState = SCISSORS; // 방어
+      }
     }
   }
-  for (let row = 0; row < rowNum; row++) {
-    for (let col = 0; col < colNum; col++) {
-      const neighborsIdx = [
-        getIdx(row - 1, col - 1),
-        getIdx(row - 1, col),
-        getIdx(row - 1, col + 1),
-        getIdx(row, col + 1),
-        getIdx(row + 1, col + 1),
-        getIdx(row + 1, col),
-        getIdx(row + 1, col - 1),
-        getIdx(row, col - 1),
-      ];
-      if (col === 0) {
-        neighborsIdx[0] = -1;
-        neighborsIdx[6] = -1;
-        neighborsIdx[7] = -1;
-      } else if (col === colNum - 1) {
-        neighborsIdx[2] = -1;
-        neighborsIdx[3] = -1;
-        neighborsIdx[4] = -1;
-      }
-      if (row === 0) {
-        neighborsIdx[0] = -1;
-        neighborsIdx[1] = -1;
-        neighborsIdx[2] = -1;
-      } else if (row === rowNum - 1) {
-        neighborsIdx[4] = -1;
-        neighborsIdx[5] = -1;
-        neighborsIdx[6] = -1;
-      }
-      const neighbors = [];
-      neighborsIdx.forEach((eachIdx) => {
-        neighbors.push(eachIdx >= 0 ? tiles[eachIdx] : null);
-      });
-      const idx = getIdx(row, col);
-      tiles[idx].setNeighbors(neighbors);
-    }
+
+  update() {
+    this.state = this.nextState;
   }
-  randomSeed(1);
-  tiles.forEach((each) => {
-    if (random() > 0.5) each.state = true;
-  });
 
-  frameRate(15);
-  background(255);
-  tiles.forEach((each) => {
-    each.display(mouseX, mouseY);
-  });
-}
+  isHover(mx, my) {
+    return (
+      this.x < mx && this.x + this.w > mx && this.y < my && this.y + this.h > my
+    );
+  }
 
-function draw() {
-  background(255);
+  toggleState(mx, my) {
+    if (!this.isClickable) return false;
+    if (!this.isHover(mx, my)) return false;
+    this.state = (this.state + 1) % 3; // 상태를 순환하도록 변경
+    return true;
+  }
 
-  tiles.forEach((each) => {
-    each.calcNextState();
-  });
-  tiles.forEach((each) => {
-    each.update();
-  });
-
-  tiles.forEach((each) => {
-    each.display(mouseX, mouseY);
-  });
-}
-
-function getIdx(row, col) {
-  return row * colNum + col;
-}
-
-function mouseClicked() {
-  for (let idx = 0; idx < tiles.length; idx++)
-    if (tiles[idx].toggleState(mouseX, mouseY)) break;
-}
-
-function keyPressed() {
-  // tiles.forEach((each) => {
-  //   each.calcNextState();
-  // });
-  // tiles.forEach((each) => {
-  //   each.update();
-  // });
+  display(mx, my) {
+    push();
+    translate(this.x, this.y);
+    stroke(this.isHover(mx, my) ? 'red' : 'black');
+    if (this.state === ROCK) {
+      fill(255, 0, 0); // 바위는 빨강
+    } else if (this.state === PAPER) {
+      fill(0, 255, 0); // 보는 초록
+    } else if (this.state === SCISSORS) {
+      fill(0, 0, 255); // 가위는 파랑
+    }
+    rect(0, 0, this.w, this.h);
+    pop();
+  }
 }
