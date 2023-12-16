@@ -9,7 +9,8 @@ body {
   align-items: center;
   justify-content: left;
   height: 100vh;
-  width: 100%;
+  width: calc(100% - 50px);
+  margin: 0 50px;
   background-color: #387576;
   overflow: hidden;
 }
@@ -45,6 +46,15 @@ span.start-btn {
   /* 수정된 부분: left 값을 조절하여 오른쪽으로 이동 */
   left: calc(100% - 950px - 2px);
   top: calc(100vh - 450px - 2px);
+}
+.error2 {
+  position: absolute;
+  width: 494px;
+  height: 420px;
+  padding: 2px;
+  background-color: #e8e8d8;
+  border: 1px outset #dedede;
+  cursor: move;
 }
 
 .title {
@@ -102,13 +112,4 @@ button.ok {
 
 .start-menu-win.active-menu {
   opacity: 1;
-}
-.error2 {
-  position: absolute;
-  width: 494px;
-  height: 120px;
-  padding: 2px;
-  background-color: #e8e8d8; /* 여기에 배경색을 흰색으로 지정합니다 */
-  border: 1px outset #dedede;
-  cursor: move;
 }

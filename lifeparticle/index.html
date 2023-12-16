@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Windows XP Error Message</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>게놈검사</title>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link
@@ -12,47 +14,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
     <script src="../../../../script/p5Util.js" defer></script>
-    <script src="./script/sketch.js" defer></script>
+    <script src="../asciicode/life.js" defer></script>
   </head>
-  <body>
-    <section>
-      <div class="container">
-        <div id="canvas"></div>
-      </div>
-    </section>
 
-    <div class="error">
+  <body>
+    <canvas id="life" width="500" height="500"></canvas>
+    <script src="life.js"></script>
+
+    <!-- <div class="error">
       <div class="title">
         Criticle Error
         <button class="close-button">X</button>
       </div>
       <div class="message">
-        <img src="error.png" alt="" />
         An error has occurred while trying to display an error message.
       </div>
       <button class="ok"><span>OK</span></button>
-    </div>
-
-    <div class="error2">
-      <div class="title">
-        Criticle Error
-        <button class="close-button">X</button>
-      </div>
-      <div class="message">
-        <img src="error.png" alt="" />
-        An error has occurred while trying to display an error message.
-      </div>
-    </div>
+    </div> -->
 
     <footer id="footer">
-      <span class="start-btn">
-        <img src="start-btn.png" alt="" />
-      </span>
-      <img src="win-bottom.png" alt="" />
+      <span class="start-btn"></span>
     </footer>
-    <div class="start-menu-win">
-      <img src="start-menu.png" alt="" />
-    </div>
+    <div class="start-menu-win"></div>
 
     <script>
       $('.error').draggable();
