@@ -20,7 +20,7 @@ const particle = (x, y, c) => {
 };
 
 const random = () => {
-  return Math.random() * 400 + 50;
+  return Math.random() * 800 + 50;
 };
 
 const create = (number, color) => {
@@ -61,26 +61,26 @@ const rule = (particles1, particles2, g) => {
   }
 };
 
-const yellow = create(300, 'yellow');
-const fuchsia = create(500, 'fuchsia');
+const blue = create(300, 'blue');
+const fuchsia = create(600, 'fuchsia');
 const lime = create(500, 'lime');
 
 const update = () => {
-  rule(lime, lime, -0.02); // 더 작은 값으로 조절
-  rule(lime, fuchsia, 0.04); // 더 작은 값으로 조절
-  rule(lime, yellow, 0.01); // 더 작은 값으로 조절
-  rule(fuchsia, fuchsia, 0.005); // 더 작은 값으로 조절
-  rule(fuchsia, lime, 0.05); // 더 작은 값으로 조절
-  rule(yellow, yellow, 0.005); // 더 작은 값으로 조절
-  rule(yellow, lime, -0.01); // 더 작은 값으로 조절
+  rule(lime, lime, -0.02);
+  rule(lime, fuchsia, 0.04);
+  rule(lime, blue, 0.03);
+  rule(fuchsia, fuchsia, 0.005);
+  rule(fuchsia, lime, 0.05);
+  rule(blue, blue, 0.005);
+  rule(blue, lime, -0.01);
 
   // rule(lime, lime, -0.32);
   // rule(lime, fuchsia, -0.17);
-  // rule(lime, yellow, 0.34);
+  // rule(lime, blue, 0.34);
   // rule(fuchsia, fuchsia, -0.1);
   // rule(fuchsia, lime, -0.34);
-  // rule(yellow, yellow, 0.15);
-  // rule(yellow, lime, -0.2);
+  // rule(blue, blue, 0.15);
+  // rule(blue, lime, -0.2);
 
   m.clearRect(0, 0, 500, 500);
   draw(0, 0, '#000000', 5000);
