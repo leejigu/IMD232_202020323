@@ -40,7 +40,8 @@ span.start-btn {
 }
 .error {
   position: absolute;
-  width: 494px;
+  width: 24vw;
+  max-width: 494vw;
   height: 120px;
   padding: 2px;
   background-color: #e8e8d8;
